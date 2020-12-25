@@ -14,9 +14,10 @@ function Map:new()
 end
 
 function Map:update(dt)
-
+    self.player:update(dt)
 end
 
 function Map:render()
     love.graphics.draw(self.background)
+    self.player:render()
 end
