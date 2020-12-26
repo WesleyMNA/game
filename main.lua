@@ -1,6 +1,6 @@
 require('src.map')
 require('src.controller.controller')
-require('src.util.util')
+require('src.utils.utils')
 
 require('lib.camera')
 

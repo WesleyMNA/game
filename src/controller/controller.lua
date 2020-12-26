@@ -1,9 +1,16 @@
+require('src.utils.utils')
+require("src.controller.analog_stick")
+
 Controller = {}
 Controller.__index = Controller
 
+local attack_y = WINDOW_HEIGHT - 60
+
 function Controller:new(player)
     local this = {
-        player = player
+        player = player,
+        move_stick = AnalogStick:new(60),
+        attack_stick = AnalogStick:new(WINDOW_WIDTH - 60)
     }
 
     setmetatable(this, self)
@@ -11,6 +18,14 @@ function Controller:new(player)
 end
 
 function Controller:update(dt)
+    self.move_stick:update(dt)
+    self.attack_stick:update(dt)
+
+    if self.move_stick:is_moving() then
+        self.player:move(self.move_stick.directions, dt)
+    end
+
+    -- code for testing while developing
     if love.keyboard.isDown("a") then
         self.player.x = self.player.x - self.player.speed * dt
     end
@@ -33,5 +48,6 @@ function Controller:update(dt)
 end
 
 function Controller:render()
-
+    self.move_stick:render()
+    self.attack_stick:render()
 end

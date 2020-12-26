@@ -3,22 +3,22 @@ WINDOW_HEIGHT = love.graphics.getHeight()
 
 TILE_SIZE = 16
 
-Util = {}
-Util.__index = Util
+Utils = {}
+Utils.__index = Utils
 
-function Util:render_loop(objectList)
+function Utils:render_loop(objectList)
     for _, object in pairs(objectList) do
         object:render()
     end
 end
 
-function Util:update_loop(dt, objectList)
+function Utils:update_loop(dt, objectList)
     for _, object in pairs(objectList) do
         object:update(dt)
     end
 end
 
-function Util:copy(obj, seen)
+function Utils:copy(obj, seen)
     if type(obj) ~= 'table' then return obj end
     if seen and seen[obj] then return seen[obj] end
     local s = seen or {}
