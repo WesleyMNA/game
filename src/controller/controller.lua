@@ -25,6 +25,10 @@ function Controller:update(dt)
         self.player:move(self.move_stick.directions, dt)
     end
 
+    if self.attack_stick:is_moving() then
+        self.player:rotate(self.attack_stick.angle)
+    end
+
     -- code for testing while developing
     if love.keyboard.isDown("a") then
         self.player.x = self.player.x - self.player.speed * dt

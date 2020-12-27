@@ -41,3 +41,7 @@ function Player:move(directions, dt)
     self.x = self.x + self.speed * dt * directions.x
     self.y = self.y + self.speed * dt * directions.y
 end
+
+function Player:rotate(radians)
+    self.radians = radians
+end

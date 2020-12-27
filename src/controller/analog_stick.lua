@@ -11,7 +11,8 @@ function AnalogStick:new(x)
         x = x,
         y = WINDOW_HEIGHT - 60,
         radians = 50,
-        directions = {x = 0, y = 0}
+        directions = {x = 0, y = 0},
+        angle = 0
     }
 
     this.stick = Stick:new(x, this.y)
@@ -53,6 +54,11 @@ function AnalogStick:set_directions(clicks)
 
     self.directions.x = side_x / hypotenuse
     self.directions.y = side_y / hypotenuse
+    self:set_angle(side_x, side_y)
+end
+
+function AnalogStick:set_angle(side_x, side_y)
+    self.angle = math.atan2(side_y, side_x)
 end
 
 function AnalogStick:reset_directions()
