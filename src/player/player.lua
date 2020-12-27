@@ -8,7 +8,7 @@ function Player:new(x, y)
         sprite = love.graphics.newImage("assets/sprites/player/player.png"),
         x = x,
         y = y,
-        radians = 0,
+        radians = -1.55,
         scale_x = 1,
         scale_y = 1,
         offset_x = 32,

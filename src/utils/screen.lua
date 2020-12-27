@@ -8,6 +8,12 @@ function ScreenUtils:screen_touched()
     return true
 end
 
+function ScreenUtils:get_touch_click(touch)
+    local click = {}
+    click.x, click.y = love.touch.getPosition(touch)
+    return click
+end
+
 function ScreenUtils:mouse_pressed()
     if love.mouse.isDown(1) then
         return true
@@ -15,16 +21,16 @@ function ScreenUtils:mouse_pressed()
     return false
 end
 
-function ScreenUtils:get_mouse_clicks()
-    local clicks = {
+function ScreenUtils:get_mouse_click()
+    local click = {
         x = love.mouse.getX(),
         y = love.mouse.getY()
     }
-    return clicks
+    return click
 end
 
-function ScreenUtils:is_circle_clicked(circle, clicks)
-    local bool_x = clicks.x < circle.x + circle.radians and clicks.x > circle.x - circle.radians
-    local bool_y = clicks.y < circle.y + circle.radians and clicks.y > circle.y - circle.radians
+function ScreenUtils:is_circle_clicked(circle, click)
+    local bool_x = click.x < circle.x + circle.radians and click.x > circle.x - circle.radians
+    local bool_y = click.y < circle.y + circle.radians and click.y > circle.y - circle.radians
     return bool_x and bool_y
 end

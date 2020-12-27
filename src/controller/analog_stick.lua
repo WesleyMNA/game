@@ -25,18 +25,22 @@ function AnalogStick:update(dt)
     self:reset_directions()
     self.stick:update(dt)
 
-    -- if Utils:screen_touched() then
-    --     local touches = love.touch.getTouches()
-    --     for _, touch in touches do
-    --         local x, y = love.touch.getPosition(touch)
-    --     end
-    -- end
+    if ScreenUtils:screen_touched() then
+        local touches = love.touch.getTouches()
+        for _, touch in pairs(touches) do
+            local click = ScreenUtils:get_touch_click(touch)
+            if ScreenUtils:is_circle_clicked(self, click) then
+                self.stick:move(click)
+                self:set_directions(click)
+            end
+        end
+    end
 
     if ScreenUtils:mouse_pressed() then
-        local clicks = ScreenUtils:get_mouse_clicks()
-        if ScreenUtils:is_circle_clicked(self, clicks) then
-            self.stick:move(clicks)
-            self:set_directions(clicks)
+        local click = ScreenUtils:get_mouse_click()
+        if ScreenUtils:is_circle_clicked(self, click) then
+            self.stick:move(click)
+            self:set_directions(click)
         end
     end
 end
@@ -47,9 +51,9 @@ function AnalogStick:render()
     self.stick:render()
 end
 
-function AnalogStick:set_directions(clicks)
-    local side_x = clicks.x - self.x
-    local side_y = clicks.y - self.y
+function AnalogStick:set_directions(click)
+    local side_x = click.x - self.x
+    local side_y = click.y - self.y
     local hypotenuse = math.sqrt(side_x ^ 2 + side_y ^ 2)
 
     self.directions.x = side_x / hypotenuse

@@ -26,7 +26,7 @@ function Stick:render()
     love.graphics.circle("fill", self.x, self.y, self.radians)
 end
 
-function Stick:move(clicks)
-    self.x = clicks.x
-    self.y = clicks.y
+function Stick:move(click)
+    self.x = click.x
+    self.y = click.y
 end
