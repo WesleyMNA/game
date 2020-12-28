@@ -12,7 +12,8 @@ function AnalogStick:new(x)
         y = WINDOW_HEIGHT - 60,
         radians = 50,
         directions = {x = 0, y = 0},
-        angle = 0
+        angle = 0,
+        touch_id = nil
     }
 
     this.stick = Stick:new(x, this.y)
@@ -22,26 +23,13 @@ function AnalogStick:new(x)
 end
 
 function AnalogStick:update(dt)
-    self:reset_directions()
     self.stick:update(dt)
-
-    if ScreenUtils:screen_touched() then
-        local touches = love.touch.getTouches()
-        for _, touch in pairs(touches) do
-            local click = ScreenUtils:get_touch_click(touch)
-            if ScreenUtils:is_circle_clicked(self, click) then
-                self.stick:move(click)
-                self:set_directions(click)
-            end
-        end
-    end
-
-    if ScreenUtils:mouse_pressed() then
-        local click = ScreenUtils:get_mouse_click()
-        if ScreenUtils:is_circle_clicked(self, click) then
-            self.stick:move(click)
-            self:set_directions(click)
-        end
+    if self.touch_id then
+        local click = ScreenUtils:get_touch_click(self.touch_id)
+        self.stick:move(click)
+        self:set_directions(click)
+    else
+        self:reset_directions()
     end
 end
 
@@ -61,15 +49,29 @@ function AnalogStick:set_directions(click)
     self:set_angle(side_x, side_y)
 end
 
-function AnalogStick:set_angle(side_x, side_y)
-    self.angle = math.atan2(side_y, side_x)
-end
-
 function AnalogStick:reset_directions()
     self.directions.x = 0
     self.directions.y = 0
 end
 
-function AnalogStick:is_moving()
-    return self.directions.x ~= 0 or self.directions.y ~= 0
+function AnalogStick:set_angle(side_x, side_y)
+    self.angle = math.atan2(side_y, side_x)
+end
+
+function AnalogStick:is_clicked(click)
+    local bool_x = click.x < self.x + self.radians and click.x > self.x - self.radians
+    local bool_y = click.y < self.y + self.radians and click.y > self.y - self.radians
+    return bool_x and bool_y
+end
+
+function AnalogStick:set_touch(touch_id, click)
+    if self:is_clicked(click) then
+        self.touch_id = touch_id
+    end
+end
+
+function AnalogStick:reset_touch(touch_id)
+    if self.touch_id == touch_id then
+        self.touch_id = nil
+    end
 end
