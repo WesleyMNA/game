@@ -23,12 +23,12 @@ function AnalogStick:new(x)
 end
 
 function AnalogStick:update(dt)
-    self.stick:update(dt)
     if self.touch_id then
         local click = ScreenUtils:get_touch_click(self.touch_id)
         self.stick:move(click)
         self:set_directions(click)
     else
+        self.stick:update(dt)
         self:reset_directions()
     end
 end
