@@ -28,7 +28,7 @@ function AnalogStick:update(dt)
         self.stick:move(click)
         self:set_directions(click)
     else
-        self.stick:update(dt)
+        self.stick:reset()
         self:reset_directions()
     end
 end

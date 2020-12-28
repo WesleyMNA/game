@@ -17,8 +17,6 @@ function Stick:new(x, y)
 end
 
 function Stick:update(dt)
-    self.x = self.middle_point.x
-    self.y = self.middle_point.y
 end
 
 function Stick:render()
@@ -29,4 +27,9 @@ end
 function Stick:move(click)
     self.x = click.x
     self.y = click.y
+end
+
+function Stick:reset()
+    self.x = self.middle_point.x
+    self.y = self.middle_point.y
 end
