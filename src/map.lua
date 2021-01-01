@@ -9,10 +9,10 @@ Map.__index = Map
 function Map:new()
     local this = {
         spritesheet = love.graphics.newImage("assets/sprites/map/spritesheet.png"),
-        player = Player:new(600, 600),
+        player = Player:new(100, 100),
         background = {},
-        width = 500,
-        height = 250
+        width = 10,
+        height = 10
     }
 
     this.quads = ImageUtils:generate_quads(this.spritesheet, TILES.width, TILES.height)
@@ -55,6 +55,15 @@ function Map:refresh_sprite_batch()
             self.sprite_batch:add(self.quads[self:get_tile(x, y)], (x - 1) * TILES.width, (y - 1) * TILES.height)
         end
     end
+end
+
+function Map:collides(tile)
+    for _, collidable in ipairs(TILES.collidables) do
+        if tile == collidable then
+            return true
+        end
+    end
+    return false
 end
 
 function Map:tile_at(x, y)

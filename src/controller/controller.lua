@@ -6,9 +6,9 @@ Controller.__index = Controller
 
 local attack_y = WINDOW_HEIGHT - 60
 
-function Controller:new(player)
+function Controller:new()
     local this = {
-        player = player,
+        player = MAP.player,
         move_stick = AnalogStick:new(60),
         attack_stick = AnalogStick:new(WINDOW_WIDTH - 60)
     }
@@ -20,6 +20,20 @@ end
 function Controller:update(dt)
     self.move_stick:update(dt)
     self.attack_stick:update(dt)
+
+    -- code for testing while developing
+    if love.keyboard.isDown("a") then
+        self.move_stick.directions.x = -1
+    end
+    if love.keyboard.isDown("d") then
+        self.move_stick.directions.x = 1
+    end
+    if love.keyboard.isDown("w") then
+        self.move_stick.directions.y = -1
+    end
+    if love.keyboard.isDown("s") then
+        self.move_stick.directions.y = 1
+    end
 
     self.player:move(self.move_stick.directions, dt)
     self.player:rotate(self.attack_stick.angle)
@@ -33,20 +47,6 @@ function Controller:update(dt)
     function love.touchreleased(id)
         self.move_stick:reset_touch(id)
         self.attack_stick:reset_touch(id)
-    end
-
-    -- code for testing while developing
-    if love.keyboard.isDown("a") then
-        self.player.x = self.player.x - self.player.speed * dt
-    end
-    if love.keyboard.isDown("d") then
-        self.player.x = self.player.x + self.player.speed * dt
-    end
-    if love.keyboard.isDown("w") then
-        self.player.y = self.player.y - self.player.speed * dt
-    end
-    if love.keyboard.isDown("s") then
-        self.player.y = self.player.y + self.player.speed * dt
     end
 end
 

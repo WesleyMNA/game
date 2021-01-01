@@ -6,25 +6,24 @@ require("src.utils.color")
 
 require("lib.camera")
 
-local map
 local controller
 
 function love.load()
-    map = Map:new()
-    controller = Controller:new(map.player)
+    MAP = Map:new()
+    controller = Controller:new()
 end
 
 function love.update(dt)
     controller:update(dt)
-    map:update(dt)
+    MAP:update(dt)
 
-    Camera.x = math.floor(map.player.x - WINDOW_WIDTH / 2)
-    Camera.y = math.floor(map.player.y - WINDOW_HEIGHT / 2)
+    Camera.x = math.floor(MAP.player.x - WINDOW_WIDTH / 2)
+    Camera.y = math.floor(MAP.player.y - WINDOW_HEIGHT / 2)
 end
 
 function love.draw()
     Camera:set()
-    map:render()
+    MAP:render()
     Camera:unset()
     controller:render()
 end
