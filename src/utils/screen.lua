@@ -1,6 +1,9 @@
 ScreenUtils = {}
 ScreenUtils.__index = ScreenUtils
 
+WINDOW_WIDTH = love.graphics.getWidth()
+WINDOW_HEIGHT = love.graphics.getHeight()
+
 function ScreenUtils:screen_touched()
     if #love.touch.getTouches() == 0 then
         return false

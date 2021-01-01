@@ -1,6 +1,3 @@
-WINDOW_WIDTH = love.graphics.getWidth()
-WINDOW_HEIGHT = love.graphics.getHeight()
-
 TILE_SIZE = 16
 
 Utils = {}

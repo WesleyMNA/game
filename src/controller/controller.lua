@@ -34,6 +34,20 @@ function Controller:update(dt)
         self.move_stick:reset_touch(id)
         self.attack_stick:reset_touch(id)
     end
+
+    -- code for testing while developing
+    if love.keyboard.isDown("a") then
+        self.player.x = self.player.x - self.player.speed * dt
+    end
+    if love.keyboard.isDown("d") then
+        self.player.x = self.player.x + self.player.speed * dt
+    end
+    if love.keyboard.isDown("w") then
+        self.player.y = self.player.y - self.player.speed * dt
+    end
+    if love.keyboard.isDown("s") then
+        self.player.y = self.player.y + self.player.speed * dt
+    end
 end
 
 function Controller:render()
