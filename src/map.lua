@@ -11,8 +11,8 @@ function Map:new()
         spritesheet = love.graphics.newImage("assets/sprites/map/spritesheet.png"),
         player = Player:new(100, 100),
         background = {},
-        width = 10,
-        height = 10
+        width = 100,
+        height = 100
     }
 
     this.quads = ImageUtils:generate_quads(this.spritesheet, TILES.width, TILES.height)
@@ -41,6 +41,8 @@ function Map:generate_background()
         for y = 1, self.height do
             if x == 1 or y == 1 or x == self.width or y == self.height then
                 self:set_tile(x, y, TILES.wall)
+            elseif math.random(20) == 1 then
+                self:set_tile(x, y, TILES.box)
             else
                 self:set_tile(x, y, TILES.grass)
             end
