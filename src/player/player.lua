@@ -80,7 +80,15 @@ end
 
 function Player:check_left_collision(dx)
     if dx < 0 then
-        if MAP:collides(MAP:tile_at(self.collider.x - self.collision_range, self.collider.y)) then
+        if
+            MAP:collides(MAP:tile_at(self.collider.x - self.collision_range, self.collider.y)) or
+                MAP:collides(
+                    MAP:tile_at(
+                        self.collider.x - self.collision_range,
+                        self.collider.y + self.collider.height - self.collision_range
+                    )
+                )
+         then
             return false
         end
     end
@@ -89,7 +97,15 @@ end
 
 function Player:check_right_collision(dx)
     if dx > 0 then
-        if MAP:collides(MAP:tile_at(self.collider.x + self.collider.width + self.collision_range, self.collider.y)) then
+        if
+            MAP:collides(MAP:tile_at(self.collider.x + self.collider.width + self.collision_range, self.collider.y)) or
+                MAP:collides(
+                    MAP:tile_at(
+                        self.collider.x + self.collider.width + self.collision_range,
+                        self.collider.y + self.collider.height - self.collision_range
+                    )
+                )
+         then
             return false
         end
     end
@@ -98,7 +114,10 @@ end
 
 function Player:check_top_collision(dy)
     if dy < 0 then
-        if MAP:collides(MAP:tile_at(self.collider.x, self.collider.y - self.collision_range)) then
+        if
+            MAP:collides(MAP:tile_at(self.collider.x, self.collider.y - self.collision_range)) or
+                MAP:collides(MAP:tile_at(self.collider.x + self.collider.width, self.collider.y - self.collision_range))
+         then
             return false
         end
     end
@@ -107,7 +126,15 @@ end
 
 function Player:check_bottom_collision(dy)
     if dy > 0 then
-        if MAP:collides(MAP:tile_at(self.collider.x, self.collider.y + self.collider.height + self.collision_range)) then
+        if
+            MAP:collides(MAP:tile_at(self.collider.x, self.collider.y + self.collider.height + self.collision_range)) or
+                MAP:collides(
+                    MAP:tile_at(
+                        self.collider.x + self.collider.width,
+                        self.collider.y + self.collider.height + self.collision_range
+                    )
+                )
+         then
             return false
         end
     end
