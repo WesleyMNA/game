@@ -31,6 +31,14 @@ function AnalogStick:update(dt)
         self.stick:reset()
         self:reset_directions()
     end
+
+    if ScreenUtils:mouse_pressed() then
+        local clicks = ScreenUtils:get_mouse_clicks()
+        if self:is_clicked(clicks) then
+            self.stick:move(clicks)
+            self:set_directions(clicks)
+        end
+    end
 end
 
 function AnalogStick:render()

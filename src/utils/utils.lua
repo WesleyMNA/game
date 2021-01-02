@@ -9,7 +9,7 @@ function Utils:render_loop(objectList)
     end
 end
 
-function Utils:update_loop(dt, objectList)
+function Utils:update_loop(objectList, dt)
     for _, object in pairs(objectList) do
         object:update(dt)
     end

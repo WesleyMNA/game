@@ -35,8 +35,9 @@ function Controller:update(dt)
         self.move_stick.directions.y = 1
     end
 
+    self.player:update(dt)
     self.player:move(self.move_stick.directions, dt)
-    self.player:rotate(self.attack_stick.angle)
+    self.player:attack(self.attack_stick.directions, self.attack_stick.angle)
 
     function love.touchpressed(id, x, y)
         local click = ScreenUtils:get_touch_click(id)

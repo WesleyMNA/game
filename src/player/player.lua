@@ -1,4 +1,5 @@
 require("src.utils.color")
+require("src.player.bullet")
 
 Player = {}
 Player.__index = Player
@@ -15,7 +16,8 @@ function Player:new(x, y)
         offset_y = 32,
         speed = 200,
         collider = {},
-        collision_range = 5
+        collision_range = 5,
+        bullets = {}
     }
 
     this.collider.width = this.sprite:getWidth()
@@ -28,6 +30,7 @@ function Player:new(x, y)
 end
 
 function Player:update(dt)
+    Utils:update_loop(self.bullets, dt)
 end
 
 function Player:render()
@@ -42,6 +45,7 @@ function Player:render()
         self.offset_x,
         self.offset_y
     )
+    Utils:render_loop(self.bullets)
 
     ColorUtils:set_color(RED)
     love.graphics.rectangle("line", self.collider.x, self.collider.y, self.collider.width, self.collider.height)
@@ -54,8 +58,12 @@ function Player:move(directions, dt)
     self:move_collider()
 end
 
-function Player:rotate(radians)
+function Player:attack(directions, radians)
     self.radians = radians
+    if directions.x ~= 0 or directions.y ~= 0 then
+        directions = Utils:copy(directions)
+        table.insert(self.bullets, Bullet:new(self.x, self.y, directions))
+    end
 end
 
 function Player:move_collider()
