@@ -41,7 +41,7 @@ function Map:generate_background()
         for y = 1, self.height do
             if x == 1 or y == 1 or x == self.width or y == self.height then
                 self:set_tile(x, y, TILES.wall)
-            elseif math.random(20) == 1 then
+            elseif math.random(50) == 1 then
                 self:set_tile(x, y, TILES.box)
             else
                 self:set_tile(x, y, TILES.grass)

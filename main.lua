@@ -1,4 +1,4 @@
-require("src.map")
+require("src.map.map")
 require("src.controller.controller")
 require("src.utils.utils")
 require("src.utils.screen")

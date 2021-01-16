@@ -6,7 +6,7 @@ function Bullet:new(x, y, directions)
         x = x,
         y = y,
         directions = directions,
-        speed = 100
+        speed = 400
     }
 
     setmetatable(this, self)

@@ -17,7 +17,8 @@ function Player:new(x, y)
         speed = 200,
         collider = {},
         collision_range = 5,
-        bullets = {}
+        bullets = {},
+        attack_speed = 2
     }
 
     this.collider.width = this.sprite:getWidth()
@@ -31,6 +32,7 @@ end
 
 function Player:update(dt)
     Utils:update_loop(self.bullets, dt)
+    self:reset_attack(dt)
 end
 
 function Player:render()
@@ -60,10 +62,16 @@ end
 
 function Player:attack(directions, radians)
     self.radians = radians
-    if directions.x ~= 0 or directions.y ~= 0 then
+    if (directions.x ~= 0 or directions.y ~= 0) and self.attack_speed >= 2 then
         directions = Utils:copy(directions)
         table.insert(self.bullets, Bullet:new(self.x, self.y, directions))
+        self.attack_speed = 0
     end
+end
+
+
+function Player:reset_attack(dt)
+    self.attack_speed = self.attack_speed + dt
 end
 
 function Player:move_collider()
